@@ -9,7 +9,7 @@ const AudioInputSubMenu = new Lang.Class({
     _init: function() {
         this.parent('Audio Input: Connecting...', true);
         
-        this.icon.icon_name = 'audio-input-microphone-symbolic';
+//        this.icon.icon_name = 'audio-input-microphone-symbolic';
 
         this._control = Main.panel.statusArea.aggregateMenu._volume._control;
         
@@ -51,6 +51,7 @@ const AudioInputSubMenu = new Lang.Class({
 });
 
 let audioInputSubMenu = null;
+let savedUpdateVisibility = null;
 
 function init() {
 }
@@ -59,10 +60,25 @@ function enable() {
     if (audioInputSubMenu != null)
         return;
     audioInputSubMenu = new AudioInputSubMenu();
-    Main.panel.statusArea.aggregateMenu._volume.menu.addMenuItem(audioInputSubMenu);
+    //Try to add the output-switcher above the input-switcher...
+    volMen = Main.panel.statusArea.aggregateMenu._volume._volumeMenu;
+    items = volMen._getMenuItems();
+    i = 0; 
+    while (i < items.length)
+        if (items[i].toString() == "[object PopupSeparatorMenuItem]")
+            break;
+        else
+            i++;
+    volMen.addMenuItem(audioInputSubMenu, i);
+    
+    savedUpdateVisibility = Main.panel.statusArea.aggregateMenu._volume._volumeMenu._input._updateVisibility;
+    Main.panel.statusArea.aggregateMenu._volume._volumeMenu._input._updateVisibility = function () {};
+    Main.panel.statusArea.aggregateMenu._volume._volumeMenu._input.item.actor.visible = true;
 }
 
 function disable() {
     audioInputSubMenu.destroy();
     audioInputSubMenu = null;
+
+    Main.panel.statusArea.aggregateMenu._volume._volumeMenu._input._updateVisibility = savedUpdateVisibility;
 }

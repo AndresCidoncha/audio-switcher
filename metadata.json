@@ -4,6 +4,6 @@
     ], 
     "uuid": "audio-input-switcher@anduchs", 
     "name": "Audio Input Switcher", 
-    "description": "Adds a switch for choosing audio input to the system menu.",
+    "description": "Adds a switch for choosing audio input to the system menu. (Makes InputSlider allways visible)",
     "url": "http://github.com/anduchs/audio-input-switcher"
 }
