@@ -23,3 +23,6 @@ or via
 
 Then resart the gnome-shell via CTRL+F2 r and enable the extension using gnome-tweak-tool
 
+To update later, just issue
+
+    (cd ~/.local/share/gnome-shell/extensions/audio-input-switcher@anduchs && git pull)
