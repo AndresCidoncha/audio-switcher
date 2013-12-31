@@ -8,6 +8,8 @@ const AudioInputSubMenu = new Lang.Class({
 
     _init: function() {
         this.parent('Audio Input: Connecting...', true);
+        
+        this.icon.icon_name = 'audio-input-microphone-symbolic';
 
         this._control = Main.panel.statusArea.aggregateMenu._volume._control;
         
@@ -28,7 +30,7 @@ const AudioInputSubMenu = new Lang.Class({
     },
     
     _updateDefaultSource: function () {
-        this.label.set_text("In: " + this._control.get_default_source().get_description());
+        this.label.set_text("" + this._control.get_default_source().get_description());
     },
     
     _updateSourceList: function () {
