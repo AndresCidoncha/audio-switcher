@@ -1,0 +1,9 @@
+{
+    "shell-version": [
+        "3.10"
+    ], 
+    "uuid": "audio-input-switcher@anduchs", 
+    "name": "Audio Input Switcher", 
+    "description": "Adds a switch for choosing audio input to the system menu.",
+    "url": "http://github.com/anduchs/audio-input-switcher"
+}
