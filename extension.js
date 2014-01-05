@@ -38,17 +38,25 @@ const AudioInputSubMenu = new Lang.Class({
     },
     
     _updateDefaultSource: function () {
-        this.label.set_text("" + this._control.get_default_source().get_description());
+        defsource = this._control.get_default_source();
+        //Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
+        if (defsource == null)
+            this.label.set_text("Other");
+        else
+            this.label.set_text(defsource.get_description());
     },
     
     _updateSourceList: function () {
         this.menu.removeAll();
 
+        defsource = this._control.get_default_source();
         sourcelist = this._control.get_sources();
         control = this._control;
 
         for (i = 0; i < sourcelist.length; i++) {
             source = sourcelist[i];
+            if (source === defsource)
+                continue;
             item = new PopupMenu.PopupMenuItem(source.get_description());
             item.connect('activate', Lang.bind(source, function() {
                 control.set_default_source(this);
