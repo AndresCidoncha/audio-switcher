@@ -52,15 +52,21 @@ const AudioInputSubMenu = new Lang.Class({
         defsource = this._control.get_default_source();
         sourcelist = this._control.get_sources();
         control = this._control;
-
+        
         for (i = 0; i < sourcelist.length; i++) {
             source = sourcelist[i];
-            if (source === defsource)
+            if (source === defsource) {
                 continue;
+            }
             item = new PopupMenu.PopupMenuItem(source.get_description());
             item.connect('activate', Lang.bind(source, function() {
                 control.set_default_source(this);
             }));
+            this.menu.addMenuItem(item);
+        }
+        if (sourcelist.length == 0 ||
+            (sourcelist.length == 1 && sourcelist[0] === defsource)) {
+            item = new PopupMenu.PopupMenuItem("No more Devices");
             this.menu.addMenuItem(item);
         }
     },
