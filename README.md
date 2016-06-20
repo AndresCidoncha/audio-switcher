@@ -19,7 +19,7 @@ or via
 
     git clone https://github.com/AndresCidoncha/audio-input-switcher.git ~/.local/share/gnome-shell/extensions/audio-input-switcher@AndresCidoncha
 
-Then resart the gnome-shell via CTRL+F2 r and enable the extension using gnome-tweak-tool
+Then resart the gnome-shell via **CTRL+F2**, in the box write **r** and enable the extension using gnome-tweak-tool
 
 To update later, just issue
 
