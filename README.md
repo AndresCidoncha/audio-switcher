@@ -1,29 +1,42 @@
-#Gnome-Shell Extension Audio-Input-Switcher
+#Gnome-Shell Extension Audio-Output-Switcher
 
-This extension adds a little entry to the status-menu that shows the currently
-selected pulse-audio-input device. Clicking on that will open a submenu with
-all available input devices and let's you choose which one to use.
+**Output switcher menu**
 
-Most importantly this extension is simple as possible. Therefore it does not
-include an output switcher or similar.
-See Audio-Output-Switcher (https://github.com/AndresCidoncha/audio-output-switcher) 
-extension for speaker selection.
+![The output menu](http://i.imgur.com/Y9e0Cpb.png)
 
-##INSTALL
+**Input switcher menu**
 
-Either via 
+![The input menu](http://i.imgur.com/jTpnaS9.png)
 
-    https://extensions.gnome.org
+## Compatibility
+  - Gnome Shell 3.10
+  - Gnome Shell 3.12
+  - Gnome Shell 3.14
+  - Gnome Shell 3.16
+  - Gnome Shell 3.18
+  - Gnome Shell 3.20
 
-or via
+## Installation
 
-    git clone https://github.com/AndresCidoncha/audio-input-switcher.git ~/.local/share/gnome-shell/extensions/audio-input-switcher@AndresCidoncha
+Via git
 
-Then resart the gnome-shell via **CTRL+F2**, in the box write **r** and enable the extension using gnome-tweak-tool
+`
+git clone git@github.com:AndresCidoncha/audio-switcher.git ~/.local/share/gnome-shell/extensions/audio-switcher@AndresCidoncha
+`
 
-To update later, just issue
+Then restart the gnome-shell via **ALT+F2**, typing in the box **r** and enable the extension using gnome-tweak-tool
 
-    (cd ~/.local/share/gnome-shell/extensions/audio-input-switcher@AndresCidoncha && git pull)
-    
-##CREDITS
-Original work by [anduchs](https://github.com/anduchs). I only add support for the lastest versions of Gnome.
+To update later:
+
+`
+(cd ~/.local/share/gnome-shell/extensions/audio-switcher@AndresCidoncha && git pull)
+`
+
+## Credits
+
+This extension adds two little entries to the status-menu that shows the currently
+selected pulse-audio-output and pulse-audio-input devices. Clicking on that will open a submenu with
+all available devices and let's you choose which one to use.
+
+All the credits is for anduchs, this extension is based on his work at [Audio Output Switcher](https://github.com/anduchs/audio-output-switcher) and [Audio Input Switcher](https://github.com/anduchs/audio-output-switcher). I only join them and
+add support for the lastest versions of Gnome-shell.
