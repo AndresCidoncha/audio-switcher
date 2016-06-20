@@ -4,7 +4,7 @@ This extension adds a little entry to the status-menu that shows the currently
 selected pulse-audio-input device. Clicking on that will open a submenu with
 all available input devices and let's you choose which one to use.
 
-Most importantly this extension is a s simple as possible. Therefore it does not
+Most importantly this extension is simple as possible. Therefore it does not
 include an output switcher or similar.
 See Audio-Output-Switcher (https://github.com/AndresCidoncha/audio-output-switcher) 
 extension for speaker selection.
