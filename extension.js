@@ -154,7 +154,11 @@ function enable() {
 		else
 			i++;
 	volMen.addMenuItem(audioOutputSubMenu, i+1);
+	
 	//Try to add the input-switcher right below the input slider...
+	let volMen = Main.panel.statusArea.aggregateMenu._volume._volumeMenu;
+	let items = volMen._getMenuItems();
+	let i = 0;
 	while (i < items.length)
 		if (items[i] === volMen._input.item)
 			break;
