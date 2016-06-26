@@ -42,12 +42,13 @@ const AudioOutputSubMenu = new Lang.Class({
 		let defsink = this._control.get_default_sink();
 		let sinklist = this._control.get_sinks();
 		let control = this._control;
+		let item;
 
 		for (let i=0; i<sinklist.length; i++) {
 			let sink = sinklist[i];
 			if (sink === defsink)
 				continue;
-			let item = new PopupMenu.PopupMenuItem(sink.get_description());
+			item = new PopupMenu.PopupMenuItem(sink.get_description());
 			item.connect('activate', Lang.bind(sink, function() {
 				control.set_default_sink(this);
 			}));
@@ -106,13 +107,14 @@ const AudioInputSubMenu = new Lang.Class({
 		let defsource = this._control.get_default_source();
 		let sourcelist = this._control.get_sources();
 		let control = this._control;
+		let item;
 
-		for (i = 0; i < sourcelist.length; i++) {
+		for (var i = 0; i < sourcelist.length; i++) {
 			let source = sourcelist[i];
 			if (source === defsource) {
 				continue;
 			}
-			let item = new PopupMenu.PopupMenuItem(source.get_description());
+			item = new PopupMenu.PopupMenuItem(source.get_description());
 			item.connect('activate', Lang.bind(source, function() {
 				control.set_default_source(this);
 			}));
@@ -154,7 +156,7 @@ function enable() {
 		else
 			i++;
 	volMen.addMenuItem(audioOutputSubMenu, i+1);
-	
+
 	//Try to add the input-switcher right below the input slider...
 	let volMen = Main.panel.statusArea.aggregateMenu._volume._volumeMenu;
 	let items = volMen._getMenuItems();
