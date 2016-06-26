@@ -28,7 +28,7 @@ const AudioOutputSubMenu = new Lang.Class({
 	},
 
 	_updateDefaultSink: function () {
-		defsink = this._control.get_default_sink();
+		let defsink = this._control.get_default_sink();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
 		if (defsink == null)
 			this.label.set_text("Other");
@@ -87,12 +87,12 @@ const AudioInputSubMenu = new Lang.Class({
 		}));
 
 		//Unless there is at least one item here, no 'open' will be emitted...
-		item = new PopupMenu.PopupMenuItem('Connecting...');
+		let item = new PopupMenu.PopupMenuItem('Connecting...');
 		this.menu.addMenuItem(item);
 	},
 
 	_updateDefaultSource: function () {
-		defsource = this._control.get_default_source();
+		let defsource = this._control.get_default_source();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
 		if (defsource == null)
 			this.label.set_text("Other");
