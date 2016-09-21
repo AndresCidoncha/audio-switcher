@@ -133,9 +133,9 @@ const AudioInputSubMenu = new Lang.Class({
 	}
 });
 
-let audioOutputSubMenu = null;
-let audioInputSubMenu = null;
-let savedUpdateVisibility = null;
+var audioOutputSubMenu = null;
+var audioInputSubMenu = null;
+var savedUpdateVisibility = null;
 
 function init() {
 }
