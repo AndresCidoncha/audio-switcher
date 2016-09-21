@@ -2,11 +2,11 @@
 
 **Output switcher menu**
 
-![The output menu](http://i.imgur.com/Y9e0Cpb.png)
+![The output menu](http://imgur.com/3xliKfp)
 
 **Input switcher menu**
 
-![The input menu](http://i.imgur.com/jTpnaS9.png)
+![The input menu](http://imgur.com/4jazC67)
 
 ## Compatibility
   - Gnome Shell 3.10
