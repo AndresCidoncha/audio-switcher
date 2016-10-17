@@ -40,3 +40,6 @@ all available devices and let's you choose which one to use.
 
 All the credits is for anduchs, this extension is based on his work at [Audio Output Switcher](https://github.com/anduchs/audio-output-switcher) and [Audio Input Switcher](https://github.com/anduchs/audio-output-switcher). I only join them and
 add support for the lastest versions of Gnome-shell.
+
+**Thanks to:**
+* [ChuckDaniels87](https://github.com/ChuckDaniels87)
