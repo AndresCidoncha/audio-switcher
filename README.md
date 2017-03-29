@@ -1,4 +1,4 @@
-#Gnome-Shell Extension Audio-Output-Switcher
+# Gnome-Shell Extension Audio-Output-Switcher
 
 **Output switcher menu**
 
@@ -43,3 +43,4 @@ add support for the lastest versions of Gnome-shell.
 
 **Thanks to:**
 * [ChuckDaniels87](https://github.com/ChuckDaniels87)
+* [Martin Wilck](https://github.com/mwilck)
