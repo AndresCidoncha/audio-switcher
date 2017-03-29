@@ -15,6 +15,7 @@
   - Gnome Shell 3.16
   - Gnome Shell 3.18
   - Gnome Shell 3.20
+  - Gnome Shell 3.24
 
 ## Installation
 
