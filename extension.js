@@ -7,9 +7,9 @@ const AudioOutputSubMenu = new Lang.Class({
 	Extends: PopupMenu.PopupSubMenuMenuItem,
 
 	_init: function() {
-		this.parent('Audio Output: Connecting...', true);
-
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
+
+		this.parent('Audio Output: Connecting...', true);
 
 		this._controlSignal = this._control.connect('default-sink-changed', Lang.bind(this, function() {
 			this._updateDefaultSink();
@@ -72,9 +72,9 @@ const AudioInputSubMenu = new Lang.Class({
 	Extends: PopupMenu.PopupSubMenuMenuItem,
 
 	_init: function() {
-		this.parent('Audio Input: Connecting...', true);
-
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
+
+		this.parent('Audio Input: Connecting...', true);
 
 		this._controlSignal = this._control.connect('default-source-changed', Lang.bind(this, function() {
 			this._updateDefaultSource();
@@ -146,27 +146,24 @@ function enable() {
 	audioInputSubMenu = new AudioInputSubMenu();
 	audioOutputSubMenu = new AudioOutputSubMenu();
 
-	//Try to add the output-switcher right below the output slider...
+	//Try to add the switchers right below the sliders...
 	let volMen = Main.panel.statusArea.aggregateMenu._volume._volumeMenu;
 	let items = volMen._getMenuItems();
 	let i = 0;
-	while (i < items.length)
-		if (items[i] === volMen._output.item)
+	let addedInput, addedOutput = false;
+	while (i < items.length){
+		if (items[i] === volMen._output.item){
+			volMen.addMenuItem(audioOutputSubMenu, i+1);
+			addedOutput = true;
+		} else if (items[i] === volMen._input.item){
+			volMen.addMenuItem(audioInputSubMenu, i+2);
+			addedInput = true;
+		}
+		if (addedOutput && addedInput){
 			break;
-		else
-			i++;
-	volMen.addMenuItem(audioOutputSubMenu, i+1);
-
-	//Try to add the input-switcher right below the input slider...
-	volMen = Main.panel.statusArea.aggregateMenu._volume._volumeMenu;
-	items = volMen._getMenuItems();
-	i = 0;
-	while (i < items.length)
-		if (items[i] === volMen._input.item)
-			break;
-		else
-			i++;
-	volMen.addMenuItem(audioInputSubMenu, i+1);
+		}
+		i++;
+	}
 
 	//Make input-slider allways visible.
 	savedUpdateVisibility = Main.panel.statusArea.aggregateMenu._volume._volumeMenu._input._updateVisibility;
