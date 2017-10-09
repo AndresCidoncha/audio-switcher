@@ -46,3 +46,4 @@ add support for the lastest versions of Gnome-shell.
 **Thanks to:**
 * [ChuckDaniels87](https://github.com/ChuckDaniels87)
 * [Martin Wilck](https://github.com/mwilck)
+* [Stefan Betz](https://github.com/encbladexp)
