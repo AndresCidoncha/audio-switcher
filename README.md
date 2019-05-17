@@ -9,14 +9,13 @@
 ![The input menu](http://imgur.com/4jazC67.png)
 
 ## Compatibility
-  - Gnome Shell 3.10
-  - Gnome Shell 3.12
-  - Gnome Shell 3.14
-  - Gnome Shell 3.16
-  - Gnome Shell 3.18
-  - Gnome Shell 3.20
-  - Gnome Shell 3.24
   - Gnome Shell 3.26
+  - Gnome Shell 3.28
+  - Gnome Shell 3.30
+  - Gnome Shell 3.32
+
+
+For Gnome Shell < 3.26, use commit 434b12e1d4543e30d07e0fb6a80a1a4b36562897.
 
 ## Installation
 
