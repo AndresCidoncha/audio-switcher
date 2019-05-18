@@ -9,14 +9,13 @@
 ![The input menu](http://imgur.com/4jazC67.png)
 
 ## Compatibility
-  - Gnome Shell 3.10
-  - Gnome Shell 3.12
-  - Gnome Shell 3.14
-  - Gnome Shell 3.16
-  - Gnome Shell 3.18
-  - Gnome Shell 3.20
-  - Gnome Shell 3.24
   - Gnome Shell 3.26
+  - Gnome Shell 3.28
+  - Gnome Shell 3.30
+  - Gnome Shell 3.32
+
+
+For Gnome Shell < 3.26, use version 1.0.
 
 ## Installation
 
@@ -47,3 +46,4 @@ add support for the lastest versions of Gnome-shell.
 * [ChuckDaniels87](https://github.com/ChuckDaniels87)
 * [Martin Wilck](https://github.com/mwilck)
 * [Stefan Betz](https://github.com/encbladexp)
+* [Christoph Heiss](https://github.com/christoph-heiss)

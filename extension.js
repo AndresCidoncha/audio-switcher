@@ -2,14 +2,11 @@ const Lang = imports.lang;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
 
-const AudioOutputSubMenu = new Lang.Class({
-	Name: 'AudioOutputSubMenu',
-	Extends: PopupMenu.PopupSubMenuMenuItem,
+class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
+	constructor() {
+		super('Audio Output: Connecting...', true);
 
-	_init: function() {
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
-
-		this.parent('Audio Output: Connecting...', true);
 
 		this._controlSignal = this._control.connect('default-sink-changed', Lang.bind(this, function() {
 			this._updateDefaultSink();
@@ -25,18 +22,18 @@ const AudioOutputSubMenu = new Lang.Class({
 		//Unless there is at least one item here, no 'open' will be emitted...
 		let item = new PopupMenu.PopupMenuItem('Connecting...');
 		this.menu.addMenuItem(item);
-	},
+	}
 
-	_updateDefaultSink: function () {
+	_updateDefaultSink() {
 		let defsink = this._control.get_default_sink();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
 		if (defsink == null)
 			this.label.set_text("Other");
 		else
 			this.label.set_text(defsink.get_description());
-	},
+	}
 
-	_updateSinkList: function () {
+	_updateSinkList() {
 		this.menu.removeAll();
 
 		let defsink = this._control.get_default_sink();
@@ -59,22 +56,20 @@ const AudioOutputSubMenu = new Lang.Class({
 			item = new PopupMenu.PopupMenuItem("No more Devices");
 			this.menu.addMenuItem(item);
 		}
-	},
-
-	destroy: function() {
-		this._control.disconnect(this._controlSignal);
-		this.parent();
 	}
-});
 
-const AudioInputSubMenu = new Lang.Class({
-	Name: 'AudioInputSubMenu',
-	Extends: PopupMenu.PopupSubMenuMenuItem,
+	destroy() {
+		this._control.disconnect(this._controlSignal);
+		super.destroy();
+	}
+}
 
-	_init: function() {
+class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
+	constructor() {
+		super('Audio Input: Connecting...', true);
+
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
-		this.parent('Audio Input: Connecting...', true);
 
 		this._controlSignal = this._control.connect('default-source-changed', Lang.bind(this, function() {
 			this._updateDefaultSource();
@@ -90,18 +85,18 @@ const AudioInputSubMenu = new Lang.Class({
 		//Unless there is at least one item here, no 'open' will be emitted...
 		let item = new PopupMenu.PopupMenuItem('Connecting...');
 		this.menu.addMenuItem(item);
-	},
+	}
 
-	_updateDefaultSource: function () {
+	_updateDefaultSource() {
 		let defsource = this._control.get_default_source();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
 		if (defsource == null)
 			this.label.set_text("Other");
 		else
 			this.label.set_text(defsource.get_description());
-	},
+	}
 
-	_updateSourceList: function () {
+	_updateSourceList() {
 		this.menu.removeAll();
 
 		let defsource = this._control.get_default_source();
@@ -125,13 +120,13 @@ const AudioInputSubMenu = new Lang.Class({
 			item = new PopupMenu.PopupMenuItem("No more Devices");
 			this.menu.addMenuItem(item);
 		}
-	},
-
-	destroy: function() {
-		this._control.disconnect(this._controlSignal);
-		this.parent();
 	}
-});
+
+	destroy() {
+		this._control.disconnect(this._controlSignal);
+		super.destroy();
+	}
+}
 
 var audioOutputSubMenu = null;
 var audioInputSubMenu = null;
