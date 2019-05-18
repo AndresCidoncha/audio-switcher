@@ -15,7 +15,7 @@
   - Gnome Shell 3.32
 
 
-For Gnome Shell < 3.26, use commit 434b12e1d4543e30d07e0fb6a80a1a4b36562897.
+For Gnome Shell < 3.26, use version 1.0.
 
 ## Installation
 
@@ -46,3 +46,4 @@ add support for the lastest versions of Gnome-shell.
 * [ChuckDaniels87](https://github.com/ChuckDaniels87)
 * [Martin Wilck](https://github.com/mwilck)
 * [Stefan Betz](https://github.com/encbladexp)
+* [Christoph Heiss](https://github.com/christoph-heiss)
