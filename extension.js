@@ -1,10 +1,13 @@
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
+const GObject = imports.gi.GObject;
 
-class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
-	constructor() {
-		super('Audio Output: Connecting...', true);
+const AudioOutputSubMenu = GObject.registerClass({
+    GTypeName: 'ASAudioOutputSubMenu',
+}, class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
+    _init() {
+		super._init('Audio Output: Connecting...', true);
 
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
@@ -62,11 +65,13 @@ class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
 		this._control.disconnect(this._controlSignal);
 		super.destroy();
 	}
-}
+});
 
-class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
-	constructor() {
-		super('Audio Input: Connecting...', true);
+const AudioInputSubMenu = GObject.registerClass({
+    GTypeName: 'ASAudioInputSubMenu',
+}, class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
+    _init() {
+		super._init('Audio Input: Connecting...', true);
 
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
@@ -126,7 +131,7 @@ class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
 		this._control.disconnect(this._controlSignal);
 		super.destroy();
 	}
-}
+});
 
 var audioOutputSubMenu = null;
 var audioInputSubMenu = null;
