@@ -1,23 +1,25 @@
-const Lang = imports.lang;
 const Main = imports.ui.main;
 const PopupMenu = imports.ui.popupMenu;
+const GObject = imports.gi.GObject;
 
-class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
-	constructor() {
-		super('Audio Output: Connecting...', true);
+const AudioOutputSubMenu = GObject.registerClass({
+    GTypeName: 'ASAudioOutputSubMenu',
+}, class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
+    _init() {
+		super._init('Audio Output: Connecting...', true);
 
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
-		this._controlSignal = this._control.connect('default-sink-changed', Lang.bind(this, function() {
+		this._controlSignal = this._control.connect('default-sink-changed', () => {
 			this._updateDefaultSink();
-		}));
+		});
 
 		this._updateDefaultSink();
 
-		this.menu.connect('open-state-changed', Lang.bind(this, function(menu, isOpen) {
+		this.menu.connect('open-state-changed', (menu, isOpen) => {
 			if (isOpen)
 				this._updateSinkList();
-		}));
+		});
 
 		//Unless there is at least one item here, no 'open' will be emitted...
 		let item = new PopupMenu.PopupMenuItem('Connecting...');
@@ -46,9 +48,9 @@ class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
 			if (sink === defsink)
 				continue;
 			item = new PopupMenu.PopupMenuItem(sink.get_description());
-			item.connect('activate', Lang.bind(sink, function() {
-				control.set_default_sink(this);
-			}));
+			item.connect('activate', () => {
+				control.set_default_sink(sink);
+			});
 			this.menu.addMenuItem(item);
 		}
 		if (sinklist.length == 0 ||
@@ -62,25 +64,27 @@ class AudioOutputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
 		this._control.disconnect(this._controlSignal);
 		super.destroy();
 	}
-}
+});
 
-class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
-	constructor() {
-		super('Audio Input: Connecting...', true);
+const AudioInputSubMenu = GObject.registerClass({
+    GTypeName: 'ASAudioInputSubMenu',
+}, class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
+    _init() {
+		super._init('Audio Input: Connecting...', true);
 
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
 
-		this._controlSignal = this._control.connect('default-source-changed', Lang.bind(this, function() {
+		this._controlSignal = this._control.connect('default-source-changed', () => {
 			this._updateDefaultSource();
-		}));
+		});
 
 		this._updateDefaultSource();
 
-		this.menu.connect('open-state-changed', Lang.bind(this, function(menu, isOpen) {
+		this.menu.connect('open-state-changed', (menu, isOpen) => {
 			if (isOpen)
 				this._updateSourceList();
-		}));
+		});
 
 		//Unless there is at least one item here, no 'open' will be emitted...
 		let item = new PopupMenu.PopupMenuItem('Connecting...');
@@ -110,9 +114,9 @@ class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
 				continue;
 			}
 			item = new PopupMenu.PopupMenuItem(source.get_description());
-			item.connect('activate', Lang.bind(source, function() {
-				control.set_default_source(this);
-			}));
+			item.connect('activate', () => {
+				control.set_default_source(source);
+			});
 			this.menu.addMenuItem(item);
 		}
 		if (sourcelist.length == 0 ||
@@ -126,7 +130,7 @@ class AudioInputSubMenu extends PopupMenu.PopupSubMenuMenuItem {
 		this._control.disconnect(this._controlSignal);
 		super.destroy();
 	}
-}
+});
 
 var audioOutputSubMenu = null;
 var audioInputSubMenu = null;
