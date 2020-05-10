@@ -9,13 +9,12 @@
 ![The input menu](http://imgur.com/4jazC67.png)
 
 ## Compatibility
-  - Gnome Shell 3.26
-  - Gnome Shell 3.28
   - Gnome Shell 3.30
   - Gnome Shell 3.32
+  - Gnome Shell 3.34
 
 
-For Gnome Shell < 3.26, use version 1.0.
+For Gnome Shell < 3.30, use version 1.0.
 
 ## Installation
 
