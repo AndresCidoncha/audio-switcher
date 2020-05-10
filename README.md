@@ -1,12 +1,8 @@
 # Gnome-Shell Extension Audio-Output-Switcher
 
-**Output switcher menu**
+**Device selector**
 
-![The output menu](http://imgur.com/3xliKfp.png)
-
-**Input switcher menu**
-
-![The input menu](http://imgur.com/4jazC67.png)
+![The output menu](./img/menu.png)
 
 ## Compatibility
   - Gnome Shell 3.30
