@@ -5,10 +5,11 @@
 ![The output menu](./img/menu.png)
 
 ## Compatibility
-  - Gnome Shell 3.30
-  - Gnome Shell 3.32
-  - Gnome Shell 3.34
-
+  - Gnome Shell:
+    - 3.30
+    - 3.32
+    - 3.34
+    - 3.36
 
 For Gnome Shell < 3.30, use version 1.0.
 
