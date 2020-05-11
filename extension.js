@@ -11,6 +11,7 @@ const AudioOutputSubMenu = GObject.registerClass({
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
 		this._updateDefaultSink();
+		this.actor.hide();
 
 		this._controlSignal = this._control.connect('default-sink-changed', () => {
 			this._updateDefaultSink();
@@ -76,6 +77,7 @@ const AudioInputSubMenu = GObject.registerClass({
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
 		this._updateDefaultSource();
+		this.actor.hide();
 
 		this._controlSignal = this._control.connect('default-source-changed', () => {
 			this._updateDefaultSource();
@@ -94,10 +96,12 @@ const AudioInputSubMenu = GObject.registerClass({
 	_updateDefaultSource() {
 		let defsource = this._control.get_default_source();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
-		if (defsource == null)
+		if (defsource == null) {
 			this.label.set_text("Other");
-		else
+		}
+		else {
 			this.label.set_text(defsource.get_description());
+		}
 	}
 
 	_updateSourceList() {
