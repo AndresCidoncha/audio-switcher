@@ -11,7 +11,7 @@ const AudioOutputSubMenu = GObject.registerClass({
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
 		this._updateDefaultSink();
-		this.actor.hide();
+		this._updateSinkList();
 
 		this._controlSignal = this._control.connect('default-sink-changed', () => {
 			this._updateDefaultSink();
@@ -43,19 +43,17 @@ const AudioOutputSubMenu = GObject.registerClass({
 
 		let defsink = this._control.get_default_sink();
 		let sinklist = this._control.get_sinks();
-		let control = this._control;
-		let item;
 
-		for (let i=0; i<sinklist.length; i++) {
-			let sink = sinklist[i];
-			if (sink === defsink)
-				continue;
-			item = new PopupMenu.PopupMenuItem(sink.get_description());
+		sinklist.forEach(sink => {
+			if (sink === defsink) {
+				return;
+			}
+			let item = new PopupMenu.PopupMenuItem(sink.get_description());
 			item.connect('activate', () => {
-				control.set_default_sink(sink);
+				this._control.set_default_sink(sink);
 			});
 			this.menu.addMenuItem(item);
-		}
+		});
 
 		if (sinklist.length > 1) {
 			this.actor.show();
@@ -77,7 +75,7 @@ const AudioInputSubMenu = GObject.registerClass({
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
 		this._updateDefaultSource();
-		this.actor.hide();
+		this._updateSourceList();
 
 		this._controlSignal = this._control.connect('default-source-changed', () => {
 			this._updateDefaultSource();
@@ -110,20 +108,17 @@ const AudioInputSubMenu = GObject.registerClass({
 
 		let defsource = this._control.get_default_source();
 		let sourcelist = this._control.get_sources();
-		let control = this._control;
-		let item;
 
-		for (var i = 0; i < sourcelist.length; i++) {
-			let source = sourcelist[i];
+		sourcelist.forEach(source => {
 			if (source === defsource) {
-				continue;
+				return;
 			}
-			item = new PopupMenu.PopupMenuItem(source.get_description());
+			let item = new PopupMenu.PopupMenuItem(source.get_description());
 			item.connect('activate', () => {
 				control.set_default_source(source);
 			});
 			this.menu.addMenuItem(item);
-		}
+		});
 
 		if (sourcelist.length > 1) {
 			this.actor.show();
