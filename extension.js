@@ -115,7 +115,7 @@ const AudioInputSubMenu = GObject.registerClass({
 			}
 			let item = new PopupMenu.PopupMenuItem(source.get_description());
 			item.connect('activate', () => {
-				control.set_default_source(source);
+				this._control.set_default_source(source);
 			});
 			this.menu.addMenuItem(item);
 		});
