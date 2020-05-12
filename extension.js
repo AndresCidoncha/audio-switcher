@@ -13,18 +13,18 @@ const AudioOutputSubMenu = GObject.registerClass({
 		this._updateDefaultSink();
 		this._updateSinkList();
 
-		this._controlSignal = this._control.connect('default-sink-changed', () => {
-			this._updateDefaultSink();
-			this._updateSinkList();
-		});
-
-		this._control.connect('output-added', () => {
-			this._updateSinkList();
-		});
-
-		this._control.connect('output-removed', () => {
-			this._updateSinkList();
-		});
+		this._controlSignals = [
+			this._control.connect('default-sink-changed', () => {
+				this._updateDefaultSink();
+				this._updateSinkList();
+			}),
+			this._control.connect('output-added', () => {
+				this._updateSinkList();
+			}),
+			this._control.connect('output-removed', () => {
+				this._updateSinkList();
+			}),
+		];
 	}
 
 	_updateDefaultSink() {
@@ -61,7 +61,9 @@ const AudioOutputSubMenu = GObject.registerClass({
 	}
 
 	destroy() {
-		this._control.disconnect(this._controlSignal);
+		this._controlSignals.forEach(signal => {
+			this._control.disconnect(signal);
+		});
 		super.destroy();
 	}
 });
@@ -77,18 +79,18 @@ const AudioInputSubMenu = GObject.registerClass({
 		this._updateDefaultSource();
 		this._updateSourceList();
 
-		this._controlSignal = this._control.connect('default-source-changed', () => {
-			this._updateDefaultSource();
-			this._updateSourceList();
-		});
-
-		this._control.connect('input-added', () => {
-			this._updateSourceList();
-		});
-
-		this._control.connect('input-removed', () => {
-			this._updateSourceList();
-		});
+		this._controlSignals = [
+			this._control.connect('default-source-changed', () => {
+				this._updateDefaultSource();
+				this._updateSourceList();
+			}),
+			this._control.connect('input-added', () => {
+				this._updateSourceList();
+			}),
+			this._control.connect('input-removed', () => {
+				this._updateSourceList();
+			}),
+		];
 	}
 
 	_updateDefaultSource() {
@@ -126,7 +128,9 @@ const AudioInputSubMenu = GObject.registerClass({
 	}
 
 	destroy() {
-		this._control.disconnect(this._controlSignal);
+		this._controlSignals.forEach(signal => {
+			this._control.disconnect(signal);
+		});
 		super.destroy();
 	}
 });
