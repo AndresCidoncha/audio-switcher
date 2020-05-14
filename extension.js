@@ -10,58 +10,60 @@ const AudioOutputSubMenu = GObject.registerClass({
 
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
-		this._controlSignal = this._control.connect('default-sink-changed', () => {
-			this._updateDefaultSink();
-		});
-
 		this._updateDefaultSink();
+		this._updateSinkList();
 
-		this.menu.connect('open-state-changed', (menu, isOpen) => {
-			if (isOpen)
+		this._controlSignals = [
+			this._control.connect('default-sink-changed', () => {
+				this._updateDefaultSink();
 				this._updateSinkList();
-		});
-
-		//Unless there is at least one item here, no 'open' will be emitted...
-		let item = new PopupMenu.PopupMenuItem('Connecting...');
-		this.menu.addMenuItem(item);
+			}),
+			this._control.connect('output-added', () => {
+				this._updateSinkList();
+			}),
+			this._control.connect('output-removed', () => {
+				this._updateSinkList();
+			}),
+		];
 	}
 
 	_updateDefaultSink() {
 		let defsink = this._control.get_default_sink();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
-		if (defsink == null)
+		if (defsink == null) {
 			this.label.set_text("Other");
-		else
+		} else {
 			this.label.set_text(defsink.get_description());
+		}
 	}
 
 	_updateSinkList() {
+		this.actor.hide();
 		this.menu.removeAll();
 
 		let defsink = this._control.get_default_sink();
 		let sinklist = this._control.get_sinks();
-		let control = this._control;
-		let item;
 
-		for (let i=0; i<sinklist.length; i++) {
-			let sink = sinklist[i];
-			if (sink === defsink)
-				continue;
-			item = new PopupMenu.PopupMenuItem(sink.get_description());
+		sinklist.forEach(sink => {
+			if (sink === defsink) {
+				return;
+			}
+			let item = new PopupMenu.PopupMenuItem(sink.get_description());
 			item.connect('activate', () => {
-				control.set_default_sink(sink);
+				this._control.set_default_sink(sink);
 			});
 			this.menu.addMenuItem(item);
-		}
-		if (sinklist.length == 0 ||
-			(sinklist.length == 1 && sinklist[0] === defsink)) {
-			item = new PopupMenu.PopupMenuItem("No more Devices");
-			this.menu.addMenuItem(item);
+		});
+
+		if (sinklist.length > 1) {
+			this.actor.show();
 		}
 	}
 
 	destroy() {
-		this._control.disconnect(this._controlSignal);
+		this._controlSignals.forEach(signal => {
+			this._control.disconnect(signal);
+		});
 		super.destroy();
 	}
 });
@@ -74,60 +76,61 @@ const AudioInputSubMenu = GObject.registerClass({
 
 		this._control = Main.panel.statusArea.aggregateMenu._volume._control;
 
-
-		this._controlSignal = this._control.connect('default-source-changed', () => {
-			this._updateDefaultSource();
-		});
-
 		this._updateDefaultSource();
+		this._updateSourceList();
 
-		this.menu.connect('open-state-changed', (menu, isOpen) => {
-			if (isOpen)
+		this._controlSignals = [
+			this._control.connect('default-source-changed', () => {
+				this._updateDefaultSource();
 				this._updateSourceList();
-		});
-
-		//Unless there is at least one item here, no 'open' will be emitted...
-		let item = new PopupMenu.PopupMenuItem('Connecting...');
-		this.menu.addMenuItem(item);
+			}),
+			this._control.connect('input-added', () => {
+				this._updateSourceList();
+			}),
+			this._control.connect('input-removed', () => {
+				this._updateSourceList();
+			}),
+		];
 	}
 
 	_updateDefaultSource() {
 		let defsource = this._control.get_default_source();
 		//Unfortunately, Gvc neglects some pulse-devices, such as all "Monitor of ..."
-		if (defsource == null)
+		if (defsource == null) {
 			this.label.set_text("Other");
-		else
+		}
+		else {
 			this.label.set_text(defsource.get_description());
+		}
 	}
 
 	_updateSourceList() {
+		this.actor.hide();
 		this.menu.removeAll();
 
 		let defsource = this._control.get_default_source();
 		let sourcelist = this._control.get_sources();
-		let control = this._control;
-		let item;
 
-		for (var i = 0; i < sourcelist.length; i++) {
-			let source = sourcelist[i];
+		sourcelist.forEach(source => {
 			if (source === defsource) {
-				continue;
+				return;
 			}
-			item = new PopupMenu.PopupMenuItem(source.get_description());
+			let item = new PopupMenu.PopupMenuItem(source.get_description());
 			item.connect('activate', () => {
-				control.set_default_source(source);
+				this._control.set_default_source(source);
 			});
 			this.menu.addMenuItem(item);
-		}
-		if (sourcelist.length == 0 ||
-			(sourcelist.length == 1 && sourcelist[0] === defsource)) {
-			item = new PopupMenu.PopupMenuItem("No more Devices");
-			this.menu.addMenuItem(item);
+		});
+
+		if (sourcelist.length > 1) {
+			this.actor.show();
 		}
 	}
 
 	destroy() {
-		this._control.disconnect(this._controlSignal);
+		this._controlSignals.forEach(signal => {
+			this._control.disconnect(signal);
+		});
 		super.destroy();
 	}
 });
@@ -140,8 +143,9 @@ function init() {
 }
 
 function enable() {
-	if ((audioInputSubMenu != null) || (audioOutputSubMenu != null))
+	if ((audioInputSubMenu != null) || (audioOutputSubMenu != null)) {
 		return;
+	}
 	audioInputSubMenu = new AudioInputSubMenu();
 	audioOutputSubMenu = new AudioOutputSubMenu();
 
